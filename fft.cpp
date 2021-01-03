@@ -1,7 +1,12 @@
-// 根本思想是divide and conquer，将系数表示法转为点值表示法
-// 分解为复根，做DFT，然后将点值相乘
-// 然后做IDFT，根据范德蒙矩阵，与DFT十分类似
-// 用butterfly transform将recursive变成iterative
+// 根本思想是divide and conquer
+// 1. 将系数表示法(coefficient)转为点值表示法(sample)
+// 在sample location的选取上用roots of unity, 这样可以保证递归中下一层的x"和
+// 上一层的x'满足(x')^2=x"。因为x"为1的n/2次root，x'为1的n次root。这个过程叫DFT
+// 可以直接assign a[i+j]与a[i+j+len/2]是因为
+// cos(2*pi/n+pi)+i*sin(2*pi/n+pi)=cos(2*pi/n)-i*sin(2*pi/n)
+// 2. 将点值相乘，sample点相同的x可以直接将y相乘
+// 3. 做IDFT，转换回系数表示法，根据范德蒙矩阵，与DFT十分类似，共轭并除以n
+// 4. optimization, 用butterfly transform将recursive变成iterative
 
 #include <bits/stdc++.h>
 using namespace std;
