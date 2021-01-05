@@ -1,4 +1,4 @@
-// Sieve of Eratosthenes
+// sieve of eratosthenes, O(n*ln(ln(sqrt(n))) + o(n))
 
 #include <bits/stdc++.h>
 using namespace std;
