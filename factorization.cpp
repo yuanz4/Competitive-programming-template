@@ -27,21 +27,44 @@ void sieve() {
 	}
 }
 
-map<int, int> factorization(int i) {
+map<int, int> factorization(int n) {
 	map<int, int> m;
-	while (i != 1) {
-		m[spf[i]]++;
-		i /= spf[i];
+	while (n != 1) {
+		m[spf[n]]++;
+		n /= spf[n];
 	}
 	return m;
+}
+
+map<int, int> factorization_naive(int n) {
+	map<int, int> m;
+	for (int i = 2; i * i <= n; i++) {
+		while (n % i == 0) {
+			m[i]++;
+			n /= i;
+		}
+	}
+	if (n != 1)
+		m[n]++;
+	return m;
+}
+
+void print(map<int, int> m) {
+	string sep = "";
+	for (auto& i: m) {
+		cout << sep << i.first << "^" << i.second;
+		sep = " * ";
+	}
+	cout << '\n';
 }
 
 int main() {
 	ios_base::sync_with_stdio(false);
     cin.tie(0);
+    int n = 54000;
+    print(factorization_naive(n));
+
 	sieve();
-	map<int, int> m = factorization(5408);
-	for (auto& i: m)
-		cout << i.first << " " << i.second << '\n';
+	print(factorization(n));
 	return 0;
 }
