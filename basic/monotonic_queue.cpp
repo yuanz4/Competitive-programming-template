@@ -1,6 +1,6 @@
 // 这里的题目是Sliding Window Maximum
 // 单调队列用来找range min和range max
-// 在尾部pop时用>=和>都行无所谓
+// 在尾部pop时用>=和>都行无所谓，因为是min和max，区别只是是否会有重复的值
 
 #include <bits/stdc++.h>
 using namespace std;
