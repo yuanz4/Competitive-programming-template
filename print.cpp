@@ -1,10 +1,11 @@
+// if no any constructor in struct, it will use aggregate initialization
+
 #include <bits/stdc++.h>
 using namespace std;
 
 struct Point {
     string name;
     int val;
-    Point(string name, int val) : name(name), val(val) {}
     friend ostream& operator<<(ostream& os, const Point& p) {
         os << p.name << " " << p.val;
         return os;
