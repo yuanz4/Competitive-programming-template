@@ -1,4 +1,5 @@
 // sieve of eratosthenes, O(n*ln(ln(sqrt(n))) + o(n))
+// in [1...n], there are n/(ln(n)-1) prime numbers
 
 #include <bits/stdc++.h>
 using namespace std;

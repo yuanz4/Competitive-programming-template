@@ -1,4 +1,7 @@
 // if no any constructor in struct, it will use aggregate initialization
+// if total n arguments, and in constructor m (<= n) is given,
+// will initialize first m arguments
+// structured binding in c++ 17: auto[x, y] = ...
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -29,12 +32,19 @@ ostream& operator<<(ostream& os, const pair<A, B>& p) {
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
+    
     vector<int> v{1, 2, 4, 2, 1};
     cout << v << '\n';
+
     unordered_map<int, int> m{{1, 22}, {343, 255}, {23, 344}};
     for (auto& i: m)
         cout << i << '\n';
+
     Point p = {"dsfd", 2};
     cout << p << '\n';
+
+    vector<pair<int, string>> vec{{1, "12313"}, {23, "sdfdf"}};
+    for (auto& [i, s]: vec)
+        cout << i << " " << s << '\n';
     return 0;
 }
