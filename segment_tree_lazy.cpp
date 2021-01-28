@@ -36,22 +36,22 @@ void push(int v) {
     }
 }
 
-void update(int v, int tl, int tr, int l, int r, int new_val) {
+void update(int v, int tl, int tr, int l, int r, int val) {
     if (l > r) 
         return;
     if (l == tl && tr == r) {
-        t[v] = new_val;
+        t[v] = val;
         marked[v] = true;
     } else {
         push(v);
         int tm = (tl + tr) / 2;
-        update(left(v), tl, tm, l, min(tm, r), new_val);
-        update(right(v), tm+1, tr, max(l, tm+1), r, new_val);
+        update(left(v), tl, tm, l, min(tm, r), val);
+        update(right(v), tm+1, tr, max(l, tm+1), r, val);
     }
 }
 
-void UPDATE(int l, int r, int new_val) {
-    update(1, 0, n-1, l, r, new_val);
+void update(int l, int r, int val) {
+    update(1, 0, n-1, l, r, val);
 }
 
 int get(int v, int tl, int tr, int pos) {
@@ -64,7 +64,7 @@ int get(int v, int tl, int tr, int pos) {
     return get(right(v), tm+1, tr, pos);
 }
 
-int GET(int pos) {
+int get(int pos) {
 	return get(1, 0, n-1, pos);
 }
 
@@ -78,10 +78,10 @@ int main() {
     a[3] = 8;
     a[4] = -7;
 	build(1, 0, n-1);
-	UPDATE(0, 2, 10);
-	cout << GET(2) << '\n';;
-	UPDATE(2, 3, 20);
-	cout << GET(2) << '\n';
-	cout << GET(3) << '\n';
+	update(0, 2, 10);
+	cout << get(2) << '\n';;
+	update(2, 3, 20);
+	cout << get(2) << '\n';
+	cout << get(3) << '\n';
 	return 0;
 }
