@@ -2,6 +2,8 @@
 // if total n arguments, and in constructor m (<= n) is given,
 // will initialize first m arguments
 // structured binding in c++ 17: auto[x, y] = ...
+// #x means stringizing, convert macro parameters to string literals
+// ... and __VA_ARGS__ are variadic functions
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -29,6 +31,21 @@ ostream& operator<<(ostream& os, const pair<A, B>& p) {
     return os << '(' << p.first << ", " << p.second << ')';
 }
 
+// -------------------------------------------------------------------------
+
+#define DEBUG
+
+void debug_out() {cerr << endl;}
+
+template <typename Head, typename... Tail>
+void debug_out(Head H, Tail... T) {cerr << " " << H, debug_out(T...);}
+
+#ifdef DEBUG
+#define print(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+#else
+#define print(...)
+#endif
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
@@ -46,5 +63,10 @@ int main() {
     vector<pair<int, string>> vec{{1, "12313"}, {23, "sdfdf"}};
     for (auto& [i, s]: vec)
         cout << i << " " << s << '\n';
+
+    string s = "vsoiwkm";
+    int l = 213;
+    double d = 23.34;
+    print(s, l, d);
     return 0;
 }
