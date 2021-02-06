@@ -4,16 +4,23 @@
 //    ^  |
 //    |  v
 // a->b->c
+// 单独使用路径压缩和按秩合并，都是O(logn)，
+// 一起使用时可以降低到alpha(n)，十分小，近似为一个常数
+// 按秩合并时，秩是树的深度或大小，小的树作为大的树的子树
+// 这里使用的是深度
 
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> p;
+vector<int> p, size;
 
 void build(int n) {
 	p.resize(n);
-	for (int i = 0; i < n; i++)
+	size.resize(n);
+	for (int i = 0; i < n; i++) {
 		p[i] = i;
+		size[i] = 0;
+	}
 }
 
 int get(int x) {
@@ -23,7 +30,16 @@ int get(int x) {
 }
 
 void merge(int x, int y) {
-	p[get(y)] = get(x);
+	x = get(x);
+	y = get(y);
+	if (size[x] < size[y])
+		p[x] = y;
+	else if (size[x] > size[y])
+		p[y] = x;
+	else {
+		p[y] = x;
+		size[x] += 1;
+	}
 }
 
 int main() {
