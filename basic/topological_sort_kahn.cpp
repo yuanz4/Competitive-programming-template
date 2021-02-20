@@ -1,4 +1,5 @@
 // topological sort with cycle detection using Kahn
+// 假如有环，则在环中的点和从环出去的点都不会在ans中
 
 #include <bits/stdc++.h>
 using namespace std;

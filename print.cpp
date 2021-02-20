@@ -4,6 +4,7 @@
 // structured binding in c++ 17: auto[x, y] = ...
 // #x means stringizing, convert macro parameters to string literals
 // ... and __VA_ARGS__ are variadic functions
+// 在output double时用fixed来控制小数点后的精度
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -68,5 +69,9 @@ int main() {
     int l = 213;
     double d = 23.34;
     print(s, l, d);
+
+    double dou = 23.123148901330;
+    cout.precision(9);
+    cout << fixed << dou << '\n';
     return 0;
 }

@@ -1,42 +1,20 @@
+// combination的递归表达式，杨辉三角
+
 #include <bits/stdc++.h>
 using namespace std;
 
 typedef long long ll;
-const ll mod = 998244353;
-vector<ll> fact, invf;
-
-ll powmod(ll a, ll b) {
-	ll res = 1;
-	a %= mod;
-	for (; b; b >>= 1) {
-		if (b & 1)
-			res = res * a % mod;
-		a = a * a % mod;
-	}
-	return res;
-}
-
-void build(int n) {
-	fact = vector<ll>(n+1, 1);
-	invf = vector<ll>(n+1, 1);
-	for (int i = 2; i <= n; i++)
-		fact[i] = fact[i-1] * i % mod;
-	invf[n] = powmod(fact[n], mod-2);
-	for (int i = n-1; i >= 2; i--)
-		invf[i] = invf[i+1] * (i+1) % mod;
-}
-
-ll nChoosek(int n, int k) {
-    if (n < k)
-    	return 0;
-    return fact[n] * invf[k] % mod * invf[n-k] % mod;
-}
+const int MAX = 55;
+ll c[MAX][MAX];
 
 int main() {
 	ios_base::sync_with_stdio(false);
     cin.tie(0);
-	int n = 100, k = 50;
-	build(n);
-	cout << nChoosek(n-2, k-4) << '\n';
+	for (int i = 0; i < MAX; i++) {
+    	c[i][0] = c[i][i] = 1;
+    	for (int j = 1; j < i; j++)
+    		c[i][j] = c[i-1][j-1] + c[i-1][j];
+    }
+    cout << c[50][25] << '\n';
 	return 0;
 }
