@@ -1,4 +1,5 @@
 // 实现类似lower_bound，比较好的方法是将符合的结果存下来
+// binary search的必要条件是目标函数f(x)=...x...是单调的
 
 #include <bits/stdc++.h>
 using namespace std;

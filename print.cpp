@@ -9,6 +9,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef tuple<int, double, string> ti;
+
 struct Point {
     string name;
     int val;
@@ -64,6 +66,10 @@ int main() {
     vector<pair<int, string>> vec{{1, "12313"}, {23, "sdfdf"}};
     for (auto& [i, s]: vec)
         cout << i << " " << s << '\n';
+
+    ti tu{1, 2.0, "sssa"};
+    auto [x, y, z] = tu;
+    cout << x << " " << y << " " << z << '\n';
 
     string s = "vsoiwkm";
     int l = 213;

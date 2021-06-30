@@ -19,8 +19,7 @@ void build(int n) {
 	height.resize(n);
 	for (int i = 0; i < n; i++) {
 		p[i] = i;
-		height[i] = 0;
-		// height[i] = 1;
+		height[i] = 1;
 	}
 }
 
@@ -30,26 +29,18 @@ int get(int x) {
 	return p[x] = get(p[x]);
 }
 
-void merge(int x, int y) {
+bool merge(int x, int y) {
 	x = get(x);
 	y = get(y);
 	if (x == y)
-		return;
+		return false;
 	if (height[x] < height[y])
-		p[x] = y;
-	else if (height[x] > height[y])
-		p[y] = x;
-	else {
-		p[y] = x;
-		height[x] += 1;
-	}
-	// if (height[x] < height[y]) {
-	// 	p[x] = y;
-	// 	height[y] += height[x];
-	// } else {
-	// 	p[y] = x;
-	// 	height[x] += height[y];
-	// }
+		swap(x, y);
+	p[y] = x;
+	if (height[x] == height[y])
+		height[x]++;
+	// height[x] += height[y];
+	return true;
 }
 
 int main() {

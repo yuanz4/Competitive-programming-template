@@ -1,5 +1,7 @@
 // 又叫Binary Indexed Tree，记录prefix sum
-// 支持单点更新，要注意index是从1开始的
+// 支持单点更新，要注意index是从1开始的，x&-x表示最后一个1
+// 对于ask要累加所有之前的线段，比如说7包含1-4(100)，5-6(110)，7(111)
+// 对于add要更新所有包含它的线段，比如说5被记录在5(101)，6(110)，8(1000)
 
 #include <bits/stdc++.h>
 using namespace std;
