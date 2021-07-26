@@ -10,6 +10,8 @@
 // 时间复杂度：O((V+E)logV)。这是基于第三种方法的，pq最大为O(V),
 // pop需要VlogV，push需要ElogV
 // 只适用于所有边都为非负的情况，这样全局最小值不可能再被更新
+// 在Dense的图上（E=V^2）会比iteration的做法O(V^2+E)慢
+// 用Fibonacci heap可以达到O(VlogV+E)
 
 // 假如是A*，f(v) = g(v) + h(v)，g是已走路程，h是预计剩余路程
 // 1. admissible: g(v) <= actual remaining cost, guarantee optimal, 
