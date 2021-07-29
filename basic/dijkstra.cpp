@@ -1,12 +1,18 @@
 // 是一种贪心算法，在pq中可能有很多到v的路径，不一定是所有的
 // （可能有很远的到v的路径还没被包括），不过一定包括最优的，
-// 因此一个点第一次被pop出来就是最优解。有三种写法：
+// 因此一个点第一次被pop出来就是最优解。d[v]会被更新多次。
+// 有至少四种写法：
 // 1. 只用d，因为在push的时候更新了d，所以只有当du==d也就是最短
 // 的时候（也是第一次pop v）才会被考虑
 // 2. 用visited来记录第一次pop的v，要注意在push的时候不用
-// 判断!visited[v]，用d足矣
+// 判断!visited[v]。是方法一的累赘版
 // 3. 前两种都是lazy delete，pq的size可能会比O(V)要大。在这里我们
-// 直接找到v对应的pair然后替换
+// 直接找到v对应的pair然后替换。一种优化方法是不存pair，只存v的index，
+// 然后overload set的comparator
+// 4. 最快的是用heap，既有set的优点（replace old value，保持size不会超过V）
+// ，也有priority_queue的优点（只更新最小值，别的部分不用sorted）。同样的
+// 时间复杂度，但是更快
+
 // 时间复杂度：O((V+E)logV)。这是基于第三种方法的，pq最大为O(V),
 // pop需要VlogV，push需要ElogV
 // 只适用于所有边都为非负的情况，这样全局最小值不可能再被更新
@@ -96,6 +102,64 @@ vector<int> dijkstra_set(vector<vector<pii>>& adj, int n) {
 	return d;
 }
 
+vector<int> dijkstra_heap(vector<vector<pii>>& adj, int n) {
+	vector<int> d(n, INT_MAX);
+	vector<int> heap(n + 2);
+	vector<int> heapIdx(n, 0);
+	int tail = 1;
+
+	auto heapDown = [&](int x) {
+		while (x * 2 <= tail) {
+			int y = x * 2;
+			if (y < tail && d[heap[y]] > d[heap[y+1]])
+				y++;
+			if (d[heap[x]] > d[heap[y]]) {
+				swap(heap[x], heap[y]);
+				heapIdx[heap[x]] = x;
+				heapIdx[heap[y]] = y;
+				x = y;
+			} else
+				break;
+		}
+	};
+
+	auto heapUp = [&](int x) {
+		while (x > 1) {
+			int y = x / 2;
+			if (d[heap[x]] < d[heap[y]]) {
+				swap(heap[x], heap[y]);
+				heapIdx[heap[x]] = x;
+				heapIdx[heap[y]] = y;
+				x = y;
+			} else
+				break;
+		}
+	};
+
+	heap[tail] = 0;
+	heapIdx[0] = 1;
+	d[0] = 0;
+	while (tail > 0) {
+		int u = heap[1];
+		heap[1] = heap[tail];
+		tail--;
+		heapDown(1);
+		for (pii& edge: adj[u]) {
+			int v = edge.first;
+			int len = edge.second;
+			if (d[u] + len < d[v])	{
+				d[v] = d[u] + len;
+				if (heapIdx[v] == 0)
+					heapIdx[v] = ++tail;
+				heap[heapIdx[v]] = v;
+				heapUp(heapIdx[v]);
+				heapDown(heapIdx[v]);
+			}
+		}
+	}
+	return d;
+}
+
 int main() {
 	ios_base::sync_with_stdio(false);
     cin.tie(0);
@@ -111,7 +175,7 @@ int main() {
     // (1) (2)   (4)
     // 1 \ / 3    | 5
     //   (3)-------
-	vector<int> d = dijkstra_d(adj, n);
+	vector<int> d = dijkstra_heap(adj, n);
 	cout << d[3] << '\n';
 	return 0;
 }
