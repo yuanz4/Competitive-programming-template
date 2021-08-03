@@ -9,7 +9,7 @@
 // the i in update() is actually the index of edge which directs to x
 // Ford–Fulkerson未定义增广路的寻找方法，O(E*|f|)
 // Edmonds-Karp，用bfs寻找任意一条增广路，则是shortest path
-// 可以证明最多有O(VE)次iteration (look at CLRS)，所以最终是O(VE^2)
+// 可以证明最多有O(VE)次iteration (on CLRS)，所以最终是O(VE^2)
 // 要得到cut左右部分的元素，只需要在所有BFS结束后从s开始再做一次BFS，则能遍历
 // 到的点都属于左边
 
