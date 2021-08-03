@@ -1,5 +1,4 @@
-// 链式前向星，边是带编号的，可以将边成对存，适用于网络流，每次用之前要清空head
-// the i in update() is actually the index of edge which directs to x
+// 建立在Edmonds-Karp的基础上
 // 用SPFA寻找一条单位费用之和最小的增广路
 // if want maximum flow maximum cost, change:
 // memset(d, 0xcf, sizeof(d));
@@ -85,6 +84,7 @@ int main() {
     add(4, 7, 1, 0);
     add(5, 7, 1, 0);
     add(6, 7, 1, 0);
+    
     while (spfa())
     	update();
     cout << maxflow << '\n';

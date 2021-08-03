@@ -1,7 +1,17 @@
 // 链式前向星，边是带编号的，可以将边成对存，适用于网络流，每次用之前要清空head
+// tot是边的index，从2开始（为了保证成对边只有最后一位不同，比如2和3）
+// ver记录这个边指向哪里，edge在这里记录capacity，Next
+// 指向前一个元素，类似链表，head是该链表的最后一个元素
+//               Next Next Next Next
+// 0: 0 (initial) <- 1 <- 2 <- 4 <- 6 (head)
+// 1: 0 (initial) <- 3 <- 5 (head)
+
 // the i in update() is actually the index of edge which directs to x
 // Ford–Fulkerson未定义增广路的寻找方法，O(E*|f|)
-// Edmonds-Karp，用bfs寻找任意一条增广路，则是shortest path，O(VE^2)
+// Edmonds-Karp，用bfs寻找任意一条增广路，则是shortest path
+// 可以证明最多有O(VE)次iteration (look at CLRS)，所以最终是O(VE^2)
+// 要得到cut左右部分的元素，只需要在所有BFS结束后从s开始再做一次BFS，则能遍历
+// 到的点都属于左边
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -73,6 +83,7 @@ int main() {
     add(1, 2, 5);
     add(1, 3, 5);
     add(2, 3, 10);
+
     while (bfs())
     	update();
 	cout << maxflow << '\n';
