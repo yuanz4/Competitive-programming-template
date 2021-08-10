@@ -2,7 +2,9 @@
 // tot是边的index，从2开始（为了保证成对边只有最后一位不同，比如2和3）
 // ver记录这个边指向哪里，edge在这里记录capacity，Next
 // 指向前一个元素，类似链表，head是该链表的最后一个元素
-//               Next Next Next Next
+
+// Edges: 0->1, 0->2, 0->4, 0->6, 1->3, 1->5
+// vertex        Next Next Next Next
 // 0: 0 (initial) <- 1 <- 2 <- 4 <- 6 (head)
 // 1: 0 (initial) <- 3 <- 5 (head)
 
