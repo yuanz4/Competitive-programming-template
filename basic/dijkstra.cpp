@@ -9,7 +9,8 @@
 // 3. 前两种都是lazy delete，pq的size可能会比O(V)要大。在这里我们
 // 直接找到v对应的pair然后替换。一种优化方法是不存pair，只存v的index，
 // 然后overload set的comparator
-// 4. 最快的是用heap，既有set的优点（replace old value，保持size不会超过V）
+// 4. 最快的是用heap实现decrease_key（更快的可以用Fibonacci）
+// 既有set的优点（replace old value，保持size不会超过V）
 // ，也有priority_queue的优点（只更新最小值，别的部分不用sorted）。同样的
 // 时间复杂度，但是更快
 
@@ -46,9 +47,9 @@ vector<int> dijkstra_d(vector<vector<pii>>& adj, int n) {
 			continue;
 		for (pii& edge: adj[u]) {
 			int v = edge.first;
-			int len = edge.second;
-			if (len + d[u] < d[v]) {
-				d[v] = len + d[u];
+			int w = edge.second;
+			if (w + d[u] < d[v]) {
+				d[v] = w + d[u];
 				pq.push({d[v], v});
 			}
 		}
@@ -70,9 +71,9 @@ vector<int> dijkstra_visited(vector<vector<pii>>& adj, int n) {
 		visited[u] = true;
 		for (pii& edge: adj[u]) {
 			int v = edge.first;
-			int len = edge.second;
-			if (len + d[u] < d[v]) {
-				d[v] = len + d[u];
+			int w = edge.second;
+			if (w + d[u] < d[v]) {
+				d[v] = w + d[u];
 				pq.push({d[v], v});
 			}
 		}
@@ -91,10 +92,10 @@ vector<int> dijkstra_set(vector<vector<pii>>& adj, int n) {
 		pq.erase(it);
 		for (pii& edge: adj[u]) {
 			int v = edge.first;
-			int len = edge.second;
-			if (len + d[u] < d[v]) {
+			int w = edge.second;
+			if (w + d[u] < d[v]) {
 				pq.erase({d[v], v});
-				d[v] = len + d[u];
+				d[v] = w + d[u];
 				pq.insert({d[v], v});
 			}
 		}
@@ -146,9 +147,9 @@ vector<int> dijkstra_heap(vector<vector<pii>>& adj, int n) {
 		heapDown(1);
 		for (pii& edge: adj[u]) {
 			int v = edge.first;
-			int len = edge.second;
-			if (d[u] + len < d[v])	{
-				d[v] = d[u] + len;
+			int w = edge.second;
+			if (d[u] + w < d[v])	{
+				d[v] = d[u] + w;
 				if (heapIdx[v] == 0)
 					heapIdx[v] = ++tail;
 				heap[heapIdx[v]] = v;

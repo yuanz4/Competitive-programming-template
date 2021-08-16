@@ -1,4 +1,5 @@
 // tl和tr指的是当前segment的boundary，与a的index相符
+// v的index从1开始
 // 这里是区间sum查询，并且update单个元素
 // lazy propogation可以对一段范围进行更新，一般用于sum
 // memory efficient的right child可以使node数量最大为2*MAX
