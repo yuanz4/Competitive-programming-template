@@ -3,13 +3,14 @@
 // 这里是区间sum查询，并且update单个元素
 // lazy propogation可以对一段范围进行更新，一般用于sum
 // memory efficient的right child可以使node数量最大为2*MAX
+// #define left(v) (v + 1)
+// #define right(v, tl, tm) (v + 2 * (tm - tl + 1))
 
 #include <bits/stdc++.h>
 using namespace std;
 
 #define left(v) (v << 1)
 #define right(v) ((v << 1) + 1)
-// #define right(v, l, mid) (v + 2 * (mid - l + 1))
 const int MAX = 5007;
 int n;
 int a[MAX];

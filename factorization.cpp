@@ -4,7 +4,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
 const int MAX = 1e5+7;
 
 int spf[MAX];

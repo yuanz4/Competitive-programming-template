@@ -1,4 +1,5 @@
 // priority queue usually pop last element
+// default compare is less
 
 #include <bits/stdc++.h>
 using namespace std;
