@@ -1,0 +1,1 @@
+rm -rf bin && mkdir bin && g++ match.cpp -std=c++17 -o bin/run && ./bin/run

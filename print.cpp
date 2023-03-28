@@ -4,6 +4,7 @@
 // structured binding in c++ 17: auto[x, y] = ...
 // #x means stringizing, convert macro parameters to string literals
 // ... and __VA_ARGS__ are variadic functions
+// 注意将print给output到cout而不是cerr，不然假如还有别的输出的话顺序会不对
 // 在output double时用fixed来控制小数点后的精度
 
 #include <bits/stdc++.h>
@@ -38,13 +39,13 @@ ostream& operator<<(ostream& os, const pair<A, B>& p) {
 
 #define DEBUG
 
-void debug_out() {cerr << endl;}
+void debug_out() {cout << endl;}
 
 template <typename Head, typename... Tail>
-void debug_out(Head H, Tail... T) {cerr << " " << H, debug_out(T...);}
+void debug_out(Head H, Tail... T) {cout << " " << H, debug_out(T...);}
 
 #ifdef DEBUG
-#define print(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+#define print(...) cout << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
 #else
 #define print(...)
 #endif
